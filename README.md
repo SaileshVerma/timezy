@@ -19,3 +19,9 @@ flutter pub get
 
 Flutter Version: 3.13.5
 Dart Version: 3.1.2
+
+## Developer Detail
+
+- Name: Sailesh Verma
+- Phone Number: +917014192676
+- Gmail ID: vermasailesh271@gmail.com
