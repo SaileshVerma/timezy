@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   percent_indicator: ^4.2.3
+  hooks_riverpod: ^2.3.6
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:
