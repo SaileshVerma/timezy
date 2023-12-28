@@ -15,4 +15,8 @@ final attemptRemainingStateProvider =
 
 final currentScoreStateProvider = StateProvider((ref) => 0);
 
-final showWinCardProvider = StateProvider((ref) => false);
+final showWinCardProvider = StateProvider((ref) => true);
+
+final showResetStateProvider = StateProvider((ref) => false);
+
+final letsStartGameWidgetProvider = StateProvider((ref) => true);

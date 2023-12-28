@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:timezy/providers/providers.dart';
+import 'package:timezy/utils/app_config.dart';
 
 class CurrentSecondsCard extends ConsumerStatefulWidget {
   const CurrentSecondsCard({
@@ -17,6 +18,18 @@ class _CurrentSecondsCardState extends ConsumerState<CurrentSecondsCard> {
   @override
   void initState() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (ref.watch(letsStartGameWidgetProvider)) {
+        return;
+      }
+      if (ref.watch(attemptRemainingStateProvider) <= 0) {
+        ref.read(showResetStateProvider.notifier).state = true;
+        return;
+      }
+      if (ref.watch(currentScoreStateProvider) >= AppConfig.totalAttempt) {
+        ref.read(showResetStateProvider.notifier).state = true;
+        return;
+      }
+
       ref.read(currentTimeInSeconds.notifier).state = DateTime.now().second;
       if (ref.watch(currentTimeInSeconds) ==
           ref.watch(randomNumberGeneratorStateProvider)) {

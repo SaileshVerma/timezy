@@ -31,6 +31,12 @@ class _TimeLeftProgressBarState extends ConsumerState<TimeLeftProgressBar> {
   @override
   void initState() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (ref.watch(letsStartGameWidgetProvider)) {
+        return;
+      }
+      if (ref.watch(showResetStateProvider)) {
+        return;
+      }
       updateCurrentTime();
     });
     super.initState();
