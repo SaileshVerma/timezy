@@ -4,7 +4,7 @@ import 'package:timezy/utils/app_config.dart';
 class StorageData {
   static Future setAttemptCurrentValue(val) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setInt('attemptValue', val);
+    await prefs.setInt('attemptValue', val);
   }
 
   static Future getAttemptCurrentValue() async {
@@ -16,7 +16,7 @@ class StorageData {
 
   static Future setCurrentScoreValue(val) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setInt('scoreValue', val);
+    await prefs.setInt('scoreValue', val);
   }
 
   static Future getCurrentScoreValue() async {

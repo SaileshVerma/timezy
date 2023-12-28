@@ -25,13 +25,16 @@ class _TimeLeftProgressBarState extends ConsumerState<TimeLeftProgressBar> {
       ref.read(showWinCardProvider.notifier).state = false;
       ref.read(attemptRemainingStateProvider.notifier).state--;
       await StorageData.setAttemptCurrentValue(
-          ref.watch(currentScoreStateProvider));
+          ref.watch(attemptRemainingStateProvider));
     }
   }
 
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(attemptRemainingStateProvider.notifier).state =
+          await StorageData.getAttemptCurrentValue();
+
       Timer.periodic(const Duration(seconds: 1), (timer) async {
         if (ref.watch(letsStartGameWidgetProvider)) {
           return;

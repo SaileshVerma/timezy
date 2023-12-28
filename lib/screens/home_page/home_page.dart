@@ -26,7 +26,9 @@ class MyHomePage extends ConsumerWidget {
             fontWeight: FontWeight.w500,
           ),
         ),
-        actions: [ResetStateActionIconWIdget()],
+        actions: const [
+          ResetStateActionIconWIdget(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
