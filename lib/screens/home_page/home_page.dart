@@ -19,7 +19,7 @@ class MyHomePage extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.cyan,
         title: const Text(
-          'TimeZy',
+          'Timezy',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,
@@ -44,7 +44,7 @@ class MyHomePage extends ConsumerWidget {
               padding: const EdgeInsets.all(20.0),
               child: (ref.watch(letsStartGameWidgetProvider) &&
                       !(ref.read(showResetStateProvider.notifier).state))
-                  ? TextButton(
+                  ? OutlinedButton(
                       onPressed: () {
                         ref.read(letsStartGameWidgetProvider.notifier).state =
                             false;
@@ -53,7 +53,7 @@ class MyHomePage extends ConsumerWidget {
                         'Press here to start 🕹️',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
