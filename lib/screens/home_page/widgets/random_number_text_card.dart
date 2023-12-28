@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:timezy/utils/random_number_geenrator.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:timezy/providers/providers.dart';
 
-class RandomNumberCard extends StatelessWidget {
+class RandomNumberCard extends ConsumerWidget {
   const RandomNumberCard({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -31,7 +32,7 @@ class RandomNumberCard extends StatelessWidget {
             ),
           ),
           Text(
-            '${randomNumberGenerator()}',
+            '${ref.watch(randomNumberGeneratorStateProvider)}',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,

@@ -1,22 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:timezy/providers/providers.dart';
 
-class CurrentSecondsCard extends StatefulWidget {
+class CurrentSecondsCard extends ConsumerStatefulWidget {
   const CurrentSecondsCard({
     super.key,
   });
 
   @override
-  State<CurrentSecondsCard> createState() => _CurrentSecondsCardState();
+  ConsumerState<CurrentSecondsCard> createState() => _CurrentSecondsCardState();
 }
 
-class _CurrentSecondsCardState extends State<CurrentSecondsCard> {
+class _CurrentSecondsCardState extends ConsumerState<CurrentSecondsCard> {
   @override
   void initState() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {});
+      ref.read(currentTimeInSeconds.notifier).state = DateTime.now().second;
+      if (ref.watch(currentTimeInSeconds) ==
+          ref.watch(randomNumberGeneratorStateProvider)) {
+        ref.read(showWinCardProvider.notifier).state = true;
+        ref.read(currentScoreStateProvider.notifier).state++;
+      }
     });
+
     super.initState();
   }
 
@@ -45,7 +53,7 @@ class _CurrentSecondsCardState extends State<CurrentSecondsCard> {
             ),
           ),
           Text(
-            '${DateTime.now().second}',
+            '${ref.watch(currentTimeInSeconds)}',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 18,

@@ -1,28 +1,30 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:timezy/providers/providers.dart';
 
-class TimeLeftProgressBar extends StatefulWidget {
+class TimeLeftProgressBar extends ConsumerStatefulWidget {
   const TimeLeftProgressBar({
     super.key,
   });
 
   @override
-  State<TimeLeftProgressBar> createState() => _TimeLeftProgressBarState();
+  ConsumerState<TimeLeftProgressBar> createState() =>
+      _TimeLeftProgressBarState();
 }
 
-class _TimeLeftProgressBarState extends State<TimeLeftProgressBar> {
+class _TimeLeftProgressBarState extends ConsumerState<TimeLeftProgressBar> {
   int currentSecond = 5;
 
   updateCurrentTime() {
-    setState(() {
-      currentSecond--;
-    });
-    if (currentSecond == 0) {
-      setState(() {
-        currentSecond = 5;
-      });
+    ref.read(remainingTimeStateProvider.notifier).state--;
+
+    if (ref.watch(remainingTimeStateProvider) == 0) {
+      ref.read(remainingTimeStateProvider.notifier).state = 5;
+      ref.read(showWinCardProvider.notifier).state = false;
+      ref.read(attemptRemainingStateProvider.notifier).state--;
     }
   }
 
@@ -41,9 +43,15 @@ class _TimeLeftProgressBarState extends State<TimeLeftProgressBar> {
       lineWidth: 8.0,
       reverse: true,
       curve: Curves.easeIn,
-      percent: ((currentSecond / 5)),
+      percent: ((ref.watch(remainingTimeStateProvider) / 5)),
       circularStrokeCap: CircularStrokeCap.round,
-      center: Text("${currentSecond} seconds"),
+      center: Text(
+        "0:0${ref.watch(remainingTimeStateProvider)}",
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       progressColor: Colors.green,
     );
   }
