@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:timezy/providers/providers.dart';
+import 'package:timezy/utils/random_number_geenrator.dart';
 
-class ClickMeButton extends StatelessWidget {
+class ClickMeButton extends ConsumerWidget {
   const ClickMeButton({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(
@@ -20,7 +23,11 @@ class ClickMeButton extends StatelessWidget {
         ),
         backgroundColor: Colors.blue,
       ),
-      onPressed: () {},
+      onPressed: () {
+        ref.watch(randomNumberGeneratorStateProvider.notifier).state =
+            randomNumberGenerator();
+        ref.read(remainingTimeStateProvider.notifier).state = 5;
+      },
       child: const Text(
         'Click',
         style: TextStyle(
