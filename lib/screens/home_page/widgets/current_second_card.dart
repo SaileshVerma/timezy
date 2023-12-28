@@ -26,9 +26,6 @@ class _CurrentSecondsCardState extends ConsumerState<CurrentSecondsCard> {
         ref.read(currentScoreStateProvider.notifier).state =
             await StorageData.getCurrentScoreValue();
 
-        final val = await StorageData.getAttemptCurrentValue();
-        print('@@@@@@@@@@@@@@@@ getAttemptCurrentValue ---> $val');
-
         Timer.periodic(
           const Duration(seconds: 1),
           (timer) async {

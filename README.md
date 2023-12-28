@@ -1,16 +1,21 @@
-# timezy
+# Timezy
 
-A new Flutter project.
+## Description
 
-## Getting Started
+Timezy is a mobile application which is made using flutter and dart. Used riverpod for state-management.
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+Highlight the key features of your Timezy app:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- States are saved in the local storage using shared preference.
+- Managed states using riverpod
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+```bash
+flutter pub get
+```
+
+Flutter Version: 3.13.5
+Dart Version: 3.1.2
