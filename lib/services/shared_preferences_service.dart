@@ -1,31 +1,32 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:timezy/utils/app_config.dart';
 
 class StorageData {
-  static setAttemptCurrentValue(val) async {
+  static Future setAttemptCurrentValue(val) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('attemptValue', val);
   }
 
-  static getAttemptCurrentValue(val) async {
+  static Future getAttemptCurrentValue() async {
     final prefs = await SharedPreferences.getInstance();
     final val = prefs.getInt('attemptValue');
 
-    return val;
+    return val ?? AppConfig.totalAttempt;
   }
 
-  static setCurrentScoreValue(val) async {
+  static Future setCurrentScoreValue(val) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setInt('scoreValue', val);
   }
 
-  static getCurrentScoreValue(val) async {
+  static Future getCurrentScoreValue() async {
     final prefs = await SharedPreferences.getInstance();
     final val = prefs.getInt('scoreValue');
 
-    return val;
+    return val ?? 0;
   }
 
-  static clearStorage() async {
+  static Future clearStorage() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
   }

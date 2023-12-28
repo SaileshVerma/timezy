@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:timezy/providers/providers.dart';
+import 'package:timezy/services/shared_preferences_service.dart';
 import 'package:timezy/utils/app_config.dart';
 
 class CurrentSecondsCard extends ConsumerStatefulWidget {
@@ -18,10 +19,19 @@ class _CurrentSecondsCardState extends ConsumerState<CurrentSecondsCard> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
+      (_) async {
+        ref.read(attemptRemainingStateProvider.notifier).state =
+            await StorageData.getAttemptCurrentValue();
+
+        ref.read(currentScoreStateProvider.notifier).state =
+            await StorageData.getCurrentScoreValue();
+
+        final val = await StorageData.getCurrentScoreValue();
+        print('@@@@@@@@@@@@@@@@  ---> $val');
+
         Timer.periodic(
           const Duration(seconds: 1),
-          (timer) {
+          (timer) async {
             if (ref.watch(letsStartGameWidgetProvider)) {
               return;
             }
@@ -40,7 +50,10 @@ class _CurrentSecondsCardState extends ConsumerState<CurrentSecondsCard> {
             if (ref.watch(currentTimeInSeconds) ==
                 ref.watch(randomNumberGeneratorStateProvider)) {
               ref.read(showWinCardProvider.notifier).state = true;
+
               ref.read(currentScoreStateProvider.notifier).state++;
+              await StorageData.setCurrentScoreValue(
+                  ref.watch(currentScoreStateProvider));
             }
           },
         );

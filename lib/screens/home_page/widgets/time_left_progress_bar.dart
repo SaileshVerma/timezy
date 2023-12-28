@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:timezy/providers/providers.dart';
+import 'package:timezy/services/shared_preferences_service.dart';
 
 class TimeLeftProgressBar extends ConsumerStatefulWidget {
   const TimeLeftProgressBar({
@@ -18,26 +19,30 @@ class TimeLeftProgressBar extends ConsumerStatefulWidget {
 class _TimeLeftProgressBarState extends ConsumerState<TimeLeftProgressBar> {
   int currentSecond = 5;
 
-  updateCurrentTime() {
-    ref.read(remainingTimeStateProvider.notifier).state--;
-
+  updateCurrentTime() async {
     if (ref.watch(remainingTimeStateProvider) == 0) {
       ref.read(remainingTimeStateProvider.notifier).state = 5;
       ref.read(showWinCardProvider.notifier).state = false;
       ref.read(attemptRemainingStateProvider.notifier).state--;
+      await StorageData.setAttemptCurrentValue(
+          ref.watch(currentScoreStateProvider));
     }
   }
 
   @override
   void initState() {
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (ref.watch(letsStartGameWidgetProvider)) {
-        return;
-      }
-      if (ref.watch(showResetStateProvider)) {
-        return;
-      }
-      updateCurrentTime();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer.periodic(const Duration(seconds: 1), (timer) async {
+        if (ref.watch(letsStartGameWidgetProvider)) {
+          return;
+        }
+        if (ref.watch(showResetStateProvider)) {
+          return;
+        }
+        ref.read(remainingTimeStateProvider.notifier).state--;
+
+        await updateCurrentTime();
+      });
     });
     super.initState();
   }

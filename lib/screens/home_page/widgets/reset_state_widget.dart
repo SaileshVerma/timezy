@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:timezy/providers/providers.dart';
+import 'package:timezy/services/shared_preferences_service.dart';
 
 class ResetStateActionIconWIdget extends ConsumerWidget {
   const ResetStateActionIconWIdget({
@@ -12,7 +13,7 @@ class ResetStateActionIconWIdget extends ConsumerWidget {
     return Visibility(
       visible: ref.watch(showResetStateProvider),
       child: IconButton(
-        onPressed: () {
+        onPressed: () async {
           ref.invalidate(remainingTimeStateProvider);
 
           ref.invalidate(currentTimeInSeconds);
@@ -28,6 +29,7 @@ class ResetStateActionIconWIdget extends ConsumerWidget {
           ref.invalidate(letsStartGameWidgetProvider);
 
           ref.read(showResetStateProvider.notifier).state = false;
+          await StorageData.clearStorage();
         },
         icon: const Icon(
           Icons.refresh,
