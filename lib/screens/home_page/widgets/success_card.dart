@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timezy/utils/app_config.dart';
 
 class SuccessCard extends StatelessWidget {
   const SuccessCard({
@@ -37,7 +38,7 @@ class SuccessCard extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              'Score: 1/2',
+              'Score: 1/${AppConfig.totalAttempt}',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,
