@@ -1,9 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
-class CurrentSecondsCard extends StatelessWidget {
+class CurrentSecondsCard extends StatefulWidget {
   const CurrentSecondsCard({
     super.key,
   });
+
+  @override
+  State<CurrentSecondsCard> createState() => _CurrentSecondsCardState();
+}
+
+class _CurrentSecondsCardState extends State<CurrentSecondsCard> {
+  @override
+  void initState() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
