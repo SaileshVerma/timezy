@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timezy/utils/random_number_geenrator.dart';
 
 class RandomNumberCard extends StatelessWidget {
   const RandomNumberCard({
@@ -17,11 +18,11 @@ class RandomNumberCard extends StatelessWidget {
           width: 2,
         ),
       ),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
+          const Text(
             'Random Number',
             style: TextStyle(
               color: Colors.black,
@@ -30,8 +31,8 @@ class RandomNumberCard extends StatelessWidget {
             ),
           ),
           Text(
-            '37',
-            style: TextStyle(
+            '${randomNumberGenerator()}',
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.w400,
